@@ -23,7 +23,7 @@ import {
   // filter image url
   app.get("/filteredimage/", async (req, res) => {
     const { image_url } = req.query
-    const is_valid = validateURL(image_url)
+    const is_valid: Boolean = validateURL(image_url)
 
     if (!is_valid) {
       return res.status(422).send("Invalid or No Image URL provided")

@@ -54,7 +54,7 @@ export async function deleteLocalFiles(files: Array<string>) {
 //    inputURL: string - a publicly accessible url to an image file
 // RETURNS
 //    a boolean (true or false)
-export function validateURL(inputURL: string) {
+export function validateURL(inputURL: string): Boolean {
 
   if (!inputURL) return false 
 
