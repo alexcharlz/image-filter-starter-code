@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {Request, Response} from 'express';
 import bodyParser from 'body-parser';
 import {
   filterImageFromURL, 
@@ -21,8 +21,8 @@ import {
 
 
   // filter image url
-  app.get("/filteredimage/", async (req, res) => {
-    const { image_url } = req.query
+  app.get("/filteredimage/", async (req: Request, res: Response) => {
+    const image_url: string = req.query.image_url
     const is_valid: Boolean = validateURL(image_url)
 
     if (!is_valid) {
