@@ -37,7 +37,7 @@ import {
       })
     })
     .catch(() => {
-      res.status(500).send('Internal Server Error.')
+      res.status(422).send('Could not process image.')
     })
   })
   
