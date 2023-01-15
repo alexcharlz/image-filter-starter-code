@@ -1,3 +1,5 @@
+const URL = require('url').URL
+
 import fs from "fs";
 import Jimp = require("jimp");
 
@@ -21,7 +23,9 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
         .write(__dirname + outpath, (img) => {
           resolve(__dirname + outpath);
         });
-    } catch (error) {
+        console.log('success')
+      } catch (error) {
+      console.log('error')
       reject(error);
     }
   });
@@ -35,5 +39,25 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
 export async function deleteLocalFiles(files: Array<string>) {
   for (let file of files) {
     fs.unlinkSync(file);
+  }
+}
+
+
+
+// validate URL
+// helper function to validate if a string in actually a url
+// INPUTS
+//    inputURL: string - a publicly accessible url to an image file
+// RETURNS
+//    a boolean (true or false)
+export function validateURL(inputURL: string) {
+
+  if (!inputURL) return false 
+
+  try {
+    new URL(inputURL)
+    return true
+  } catch {
+    return false
   }
 }
