@@ -2,7 +2,8 @@ const URL = require('url').URL
 
 import fs from "fs";
 import Jimp = require("jimp");
-import axios from 'axios'
+import fetch from "node-fetch";
+
 
 // filterImageFromURL
 // helper function to download, filter, and save the filtered image locally
@@ -14,14 +15,18 @@ import axios from 'axios'
 export async function filterImageFromURL(inputURL: string): Promise<string> {
   return new Promise(async (resolve, reject) => {
     try {
-      const photo = await axios({
-        method: 'get',
-        url: inputURL,
-        responseType: 'arraybuffer'
-      })
-      .then(function ({data: imageBuffer}) {
-        return Jimp.read(imageBuffer)
-      })
+      let fimg = await fetch(inputURL)
+      let fimgb = Buffer.from(await fimg.arrayBuffer())
+      const photo = await Jimp.read(fimgb)
+      // const photo: string
+      // const photo = await axios({
+      //   method: 'get',
+      //   url: inputURL,
+      //   responseType: 'arraybuffer'
+      // })
+      // .then(function ({data: imageBuffer}) {
+      //   return Jimp.read(imageBuffer)
+      // })
       // const photo = await Jimp.read("https://images.pexels.com/photos/296282/pexels-photo-296282.jpeg?auto=compress&cs=tinysrgb&h=350")
       // .then(image => image.getBuffer(Jimp.AUTO, (err, res) => res));
       const outpath =
